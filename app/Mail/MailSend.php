@@ -11,14 +11,15 @@ class MailSend extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $mail_data;
   
-    public function __construct()
+    public function __construct($mail_data)
     {
-        //
+        $this->mail_data=$mail_data;
     }
 
     public function build()
     {
-        return $this->view('view.name');
+        return $this->mail_data->subject('Test email')->view('email.test');
     }
 }
