@@ -37,7 +37,7 @@ def create_contact(name:str, email:str):
     print(f'New contact succcessfully created')
 
 
-#
+
 
 if __name__ == "__main__":
     cli_app()
