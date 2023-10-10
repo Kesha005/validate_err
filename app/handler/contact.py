@@ -34,9 +34,9 @@ class ContactHandler:
     def update_contact( id, name = None , email = None):
         session = Session()
         contact = session.query(Contact).get(id)
-        if name is not None:
+        if name != 'null':
             contact.name = name
-        if email is not None:
+        if email != 'null':
             contact.email = email
         session.commit()
         session.close()

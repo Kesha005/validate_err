@@ -45,10 +45,13 @@ def show(id:int):
     print(f'{contact.id}\t{contact.name}\t\t {contact.email}\n')
 
 
-# @cli_app.command()
-# def update(id:int name=None, email=None):
-#     pass
-
+@cli_app.command()
+def update(id:int, name:str='null', email:str='null'):
+    if ContactHandler.update_contact(id,name, email) == True:
+        print("Contact updated successfully")
+    else:
+        print("There are some problems on updating")
+    
 @cli_app.command()
 def delete(id:int):
     if ContactHandler.destroy_contact(id) == True:
