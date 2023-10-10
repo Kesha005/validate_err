@@ -24,14 +24,14 @@ class ContactHandler:
         return contacts
     
     @staticmethod
-    def get_contact_by_id(self,id):
+    def get_contact_by_id(id):
         session = Session()
         contact = session.query(Contact).get(id)
         session.close()
         return contact
         
     @staticmethod
-    def update_contact(self, id, name = None , email = None):
+    def update_contact( id, name = None , email = None):
         session = Session()
         contact = session.query(Contact).get(id)
         if name is not None:
@@ -43,7 +43,7 @@ class ContactHandler:
         return True
     
     @staticmethod
-    def destroy_contact(self, id):
+    def destroy_contact( id):
         session = Session()
         contact = session.query(Contact).get(id)
         session.delete(contact)
