@@ -22,3 +22,5 @@ class Password(Base):
     username = Culumn(String(120))
     password = Columng(String(150))
     email  = Column(String(120))
+    
+    

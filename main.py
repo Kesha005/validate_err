@@ -31,6 +31,7 @@ def contacts():
         print(f'{contact.id}\t{contact.name}\t\t {contact.email}\n')
         print(f'-----------------------------------------------------')
         
+        
 @cli_app.command()
 def create_contact(name:str, email:str):
     new_contact = ContactHandler.create_new_contact(name, email)
@@ -62,3 +63,4 @@ def delete(id:int):
 
 if __name__ == "__main__":
     cli_app()
+    
