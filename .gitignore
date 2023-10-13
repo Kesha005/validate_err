@@ -1,1 +1,4 @@
 env/*
+app/db/__pycache__
+app/handler/__pycache__
+app/models/__pycache__
