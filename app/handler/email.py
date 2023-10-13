@@ -35,10 +35,17 @@ class Email:
         return self
         
     
-    def send(self):
+    async def send(self):
+        
+        if len(self.receivers) > 1:
+            pass
+            
+        else:
+            pass
         
         self.smtpsession.sendmail(
             self.sender_mail,
             self.receivers,
             self.body
         )
+    
