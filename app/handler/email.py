@@ -18,15 +18,27 @@ class Email:
         self.theme = theme
         self.body = body
         
+        self.receivers = []
         return self
 
     
-    def to_many_contact(self, receiver):
-        pass
+    def to_many_contact(self, receivers):
+        
+        for receiver in receivers:
+            self.receivers.append(receiver)
+            
+        return self
     
     def to_single(self, receiver):
+        self.receivers.append(receiver)
         
+        return self
         
     
     def send(self):
-        pass
+        
+        self.smtpsession.sendmail(
+            self.sender_mail,
+            self.receivers,
+            self.body
+        )
