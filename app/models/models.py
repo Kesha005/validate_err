@@ -18,9 +18,9 @@ class Contact(Base):
 class Password(Base):
     __tablename__ = 'passwords'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Culumn(String(120))
-    username = Culumn(String(120))
-    password = Columng(String(150))
+    name = Column(String(120))
+    username = Column(String(120))
+    password = Column(String(150))
     email  = Column(String(120))
     
     
