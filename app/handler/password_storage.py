@@ -44,7 +44,7 @@ class PasswordHandler:
     @staticmethod
     def update(id, name, email, username, password):
         session = Session()
-        password = session.query(Password).find(id)
+        password = session.query(Password).get(id)
         if name is not None:
             password.name = name
         if email is not None:
@@ -58,6 +58,13 @@ class PasswordHandler:
         session.commit()
         session.close() 
         
-        
+    @staticmethod
+    def delete(id:int):
+        session = Session()
+        password = session.query(Password).get(id)
+        session.delete(password)
+        session.commit()
+        session.close()
+        return True
     
 
