@@ -40,3 +40,11 @@ class Chiper:
         
         return token.decode()
     
+    
+    def decrypt_data_in_object_array(objects):
+        decrypted = []
+        for obj in objects :
+            obj.password = self.decrypt_data(obj.password)
+            decrypted.append(obj)
+        return decrypted
+            
