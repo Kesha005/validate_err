@@ -41,7 +41,22 @@ class PasswordHandler:
         decrypted =Chiper.decrypt_data_in_object_array(passwords)
         return decrypted
     
-    
+    @staticmethod
+    def update(id, name, email, username, password):
+        session = Session()
+        password = session.query(Password).find(id)
+        if name is not None:
+            password.name = name
+        if email is not None:
+            password.email = email
+            
+        if username is not None:
+            password.username = username
+        if password is None:
+            password.password = Chiper.encrypt_data(self.password)
+        
+        session.commit()
+        session.close() 
         
         
     
