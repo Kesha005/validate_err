@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,14 +20,41 @@ class Contact extends Model
     }
 
     public  function store(){
-        $this->create([
+        try {
+
+            $this->create([
             'name'=>$this->name,
             'email'=>$this->email,
             'job'=>$this->job
+            
+        ]);
+        } catch(Exception $e){
+            return $e;
+        }
+        
+    }
+
+
+    public static function get_contact($id){
+        $contact = self::where('id', $id)->first();
+        return $contact;
+    }
+
+    public static function update_contact($contact, $data){
+        $contact->update([
+            'name' => $data->name,
+            'email' => $data->email,
+            'job' => $data->job
         ]);
     }
 
-    public static function update_contact($id, $data){
-        $contact = self::where('id', $id)->first();
+    public static function delete_contact($id){
+        try{
+        
+            self::where('id', $id)->delete();
+        } catch(Exception $e){
+            return $e;
+        }
+
     }
 }
