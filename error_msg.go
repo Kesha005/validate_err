@@ -2,8 +2,7 @@ package validate_err
 
 import (
 	"errors"
-	"fmt"
-	"net/http"
+	
 
 	"github.com/go-playground/validator/v10"
 )
@@ -18,7 +17,10 @@ var valerr validator.ValidationErrors
 
 func GetErr(err error){
 	if errors.As(err, &valerr){
-
+		out := make([]ErrorMessage,len(valerr))
+		for i, errmsg := range valerr{
+			out[i] = ErrorMessage{errmsg.Field(),GetErrorMsg(errmsg)}
+		}
 	}
 }
 
