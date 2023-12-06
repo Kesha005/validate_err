@@ -15,13 +15,16 @@ type ErrorMessage struct{
 
 var valerr validator.ValidationErrors
 
-func GetErr(err error){
+func GetErr(err error)[]ErrorMessage{
 	if errors.As(err, &valerr){
 		out := make([]ErrorMessage,len(valerr))
 		for i, errmsg := range valerr{
 			out[i] = ErrorMessage{errmsg.Field(),GetErrorMsg(errmsg)}
 		}
+		return out
 	}
+	return nil
+	
 }
 
 func GetErrorMsg(fe validator.FieldError)string{
