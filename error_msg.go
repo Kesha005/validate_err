@@ -2,8 +2,8 @@ package validate_err
 
 import (
 	"errors"
-	
 
+	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -25,6 +25,12 @@ func GetErr(err error)[]ErrorMessage{
 	}
 	return nil
 	
+}
+
+
+var validation_err = map[string]string{
+	"name.required" :"Name field is required",
+	"author.required":"Author field is required",
 }
 
 func GetErrorMsg(fe validator.FieldError)string{
