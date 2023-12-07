@@ -2,6 +2,7 @@ package validate_err
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -56,4 +57,8 @@ func GetErrorMsg(fe validator.FieldError)string{
 	}
 	return "Unknown error"
 }	
+
+func Hello(){
+	fmt.Println("Hello World")
+}
 
