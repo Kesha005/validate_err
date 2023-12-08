@@ -1,6 +1,8 @@
 package validate_err
 
-import "fmt"
+import (
+	"strings"
+)
 
 func GetField(rules string) string {
 
@@ -18,7 +20,7 @@ func GetField(rules string) string {
 func GetRule(rules string) string {
 	for t := 0; t < len(rules); t++ {
 		if string(rules[t]) == "." {
-			return (string(rules[t+1:]))
+			return strings.SplitAfter(rules,".")[0]
 		} else {
 			return "Unknown"
 		}
