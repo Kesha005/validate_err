@@ -35,5 +35,9 @@ var validation_err = map[string]string{
 }
 
 func GetErrorMsg(fe validator.FieldError, rule *map[string]string)string{
-	
+	for i ,_ := range *rule{
+		if strings.ToLower(fe.Field()) == GetField(i) && fe.Tag()=={
+
+		}
+	}
 }
