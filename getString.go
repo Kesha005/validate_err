@@ -1,10 +1,10 @@
-package main
+package validate_err
 
 import "fmt"
 
 
 
-func main(){
+func GetRuleField(rules *map[string]string){
 	
 	rule := map[string]string{
 		"name.required":"The name must be required",
