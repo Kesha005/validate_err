@@ -3,8 +3,6 @@ package validate_err
 import (
 	"errors"
 	"strings"
-
-	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )
 
