@@ -2,8 +2,7 @@ package validate_err
 
 import (
 	"errors"
-	
-
+	"strings"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -15,11 +14,11 @@ type ErrorMessage struct{
 
 var valerr validator.ValidationErrors
 
-func GetErr(err error)[]ErrorMessage{
+func GetErr(err error, rule *map[string]string)[]ErrorMessage{
 	if errors.As(err, &valerr){
 		out := make([]ErrorMessage,len(valerr))
 		for i, errmsg := range valerr{
-			out[i] = ErrorMessage{errmsg.Field(),GetErrorMsg(errmsg)}
+			out[i] = ErrorMessage{strings.ToLower(errmsg.Field()),GetErrorMsg(errmsg, rule)}
 		}
 		return out
 	}
@@ -27,27 +26,19 @@ func GetErr(err error)[]ErrorMessage{
 	
 }
 
-func GetErrorMsg(fe validator.FieldError)string{
 
-	switch fe.Tag(){
+var validation_err = map[string]string{
+	"name.required" :"Name field is required",
+	"author.required":"Author field is required",
+}
 
-		case "required":
-			return "This field is required"
-
-		case "min":
-			return " The min value must be "+ fe.Param()
-		
-		case "max":
-			return "The maximum value must be "+ fe.Param()
-		case "let":
-			return "Should be less than "+ fe.Param()
-
-		case "startwith":
-			return "Value must be start with "+fe.Param()
-
-		case "endswith":
-			return "Value must be end with "+fe.Param()
+func GetErrorMsg(fe validator.FieldError, rule *map[string]string)string{
+	for i ,msg := range *rule{
+		if strings.ToLower(fe.Field()) == GetField(i) && fe.Tag()==GetRule(i){
+			return msg
+		}else{
+			return "Unknown error"
+		}
 	}
 	return "Unknown error"
-}	
-
+}
