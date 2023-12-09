@@ -10,7 +10,7 @@ func GetField(rules string) string {
 		if string(rules[t]) == "." {
 			return (string(rules[0:t]))
 		} else {
-			return "Unknown"
+			return "Unknown error ....get field function "
 		}
 	}
 
@@ -22,9 +22,9 @@ func GetRule(rules string) string {
 		if string(rules[t]) == "." {
 			return strings.SplitAfter(rules,".")[0]
 		} else {
-			return "Unknown"
+			return "Unknown .....get rule fuction "
 		}
 	}
 
-	return "Unknown"
+	return "Unknown   ..... get rule not in for"
 }
