@@ -27,10 +27,10 @@ func GetErr(err error, rule *map[string]string)[]ErrorMessage{
 }
 
 
-var validation_err = map[string]string{
-	"name.required" :"Name field is required",
-	"author.required":"Author field is required",
-}
+// var validation_err = map[string]string{
+// 	"name.required" :"Name field is required",
+// 	"author.required":"Author field is required",
+// }
 
 func GetErrorMsg(fe validator.FieldError, rule *map[string]string)string{
 	for i ,msg := range *rule{
