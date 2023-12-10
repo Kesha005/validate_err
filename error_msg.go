@@ -8,8 +8,8 @@ import (
 
 
 type ErrorMessage struct{
-	Field string `"json:field"`
-	Message string `"json:message"`
+	Field string `json:"field"`
+	Message string `json:"message"`
 }
 
 var valerr validator.ValidationErrors
