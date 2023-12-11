@@ -14,7 +14,7 @@ func GetField(rules string) string {
 
 	return "Unknown"
 }
-//Code will be modifed there and added new codes
+
 func GetRule(rules string) string {
 	for t := 0; t < len(rules); t++ {
 		if string(rules[t]) == "." {
