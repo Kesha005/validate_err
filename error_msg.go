@@ -40,8 +40,8 @@ func GetErrorMsg(fe validator.FieldError, rule *map[string]string)string{
 		if strings.ToLower(fe.Field()) == GetField(i) && fe.Tag()==GetRule(i){
 			return msg
 		}else{
-			return "Unknown error  ...... Geterrror mesg function "
+			return "Unknown error"
 		}
 	}
-	return "Unknown ..... error GeterrorMsg function not for "
+	return "Unknown error"
 }
