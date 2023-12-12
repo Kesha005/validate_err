@@ -12,7 +12,7 @@ func GetField(rules string) string {
 		} 
 	}
 
-	return "Unknown"
+	return "Unknown field in validation"
 }
 
 func GetRule(rules string) string {
@@ -22,5 +22,5 @@ func GetRule(rules string) string {
 		} 
 	}
 
-	return "Unknown   ..... get rule not in for"
+	return "Unknown validation rule"
 }
