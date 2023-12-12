@@ -6,7 +6,10 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-
+/*
+	Error message struct
+	returns error field and message that field
+*/
 type ErrorMessage struct{
 	Field string `json:"field"`
 	Message string `json:"message"`
