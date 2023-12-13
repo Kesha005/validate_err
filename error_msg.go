@@ -3,6 +3,8 @@ package validate_err
 import (
 	"errors"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -17,13 +19,15 @@ type ErrorMessage struct{
 
 var valerr validator.ValidationErrors
 
-func GetErr(err error, rule *map[string]string)[]ErrorMessage{
+
+
+func GetErr(err error, rule *map[string]string)gin.H{
 	if errors.As(err, &valerr){
 		out := make([]ErrorMessage,len(valerr))
 		for i, errmsg := range valerr{
 			out[i] = ErrorMessage{strings.ToLower(errmsg.Field()),GetErrorMsg(errmsg, rule)}
 		}
-		return out
+		return gin.H{"errors":out}
 	}
 	return nil
 	
