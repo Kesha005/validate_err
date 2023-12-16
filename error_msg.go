@@ -21,15 +21,24 @@ var valerr validator.ValidationErrors
 
 
 
-func GetErr(err error, rule *map[string]string)gin.H{
-	if errors.As(err, &valerr){
-		out := make([]ErrorMessage,len(valerr))
-		for i, errmsg := range valerr{
-			out[i] = ErrorMessage{strings.ToLower(errmsg.Field()),GetErrorMsg(errmsg, rule)}
+func GetErr(err error, rule *map[string]string)gin.HandlerFunc{
+
+	return func (c *gin.Context) {
+		err := c.ShouldBindJSON("some Json validation struct")
+		if err!=nil{
+			c.Abort()
+			return 
 		}
-		return gin.H{"errors":out}
+		c.Next()
 	}
-	return nil
+	// if errors.As(err, &valerr){
+	// 	out := make([]ErrorMessage,len(valerr))
+	// 	for i, errmsg := range valerr{
+	// 		out[i] = ErrorMessage{strings.ToLower(errmsg.Field()),GetErrorMsg(errmsg, rule)}
+	// 	}
+	// 	return gin.H{"errors":out}
+	// }
+	// return nil
 	
 }
 
