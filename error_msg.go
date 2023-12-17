@@ -26,10 +26,8 @@ func GetErr(err error, rule *map[string]string)gin.HandlerFunc{
 	return func (c *gin.Context) {
 		err := c.ShouldBindJSON("some Json validation struct")
 		if err!=nil{
-			c.Abort()
-			return 
+			
 		}
-		c.Next()
 	}
 	// if errors.As(err, &valerr){
 	// 	out := make([]ErrorMessage,len(valerr))
