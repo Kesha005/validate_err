@@ -3,6 +3,7 @@ package validate_err
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -24,8 +25,22 @@ Request body struct to using validation
 
 var valerr validator.ValidationErrors
 
-func val(user *struct{}){
-	err := json.NewDecoder().Decode(user)
+type Request struct {
+	req *gin.Context
+}
+
+func (reval Request) val(user *struct{}) gin.HandlerFunc {
+	err := json.NewDecoder(reval.req.Request.Body).Decode(user)
+	if err != nil {
+		return func(c *gin.Context) {
+			c.JSON(http.StatusBadRequest,gin.H{"error":err.Error()})
+			return
+		}
+		
+	}
+	return func(ctx *gin.Context) {
+		ctx.Next()	
+	}
 }
 
 func GetErr(err error, rule *map[string]string) gin.HandlerFunc {
