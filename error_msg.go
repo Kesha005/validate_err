@@ -30,35 +30,41 @@ type Request struct {
 }
 
 func (reval Request) val(user *struct{}) gin.HandlerFunc {
-	err := json.NewDecoder(reval.req.Request.Body).Decode(user)
+	err := json.NewDecoder(reval.req.Request.Body).Decode(&user)
 	if err != nil {
 		return func(c *gin.Context) {
-			c.JSON(http.StatusBadRequest,gin.H{"error":err.Error()})
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		
+
 	}
+	validate := validator.New()
+	err = validate.Struct(user)
+	if err!=nil{
+		GetErr()
+	}
+	
 	return func(ctx *gin.Context) {
-		ctx.Next()	
+		ctx.Next()
 	}
 }
 
 func GetErr(err error, rule *map[string]string) gin.HandlerFunc {
 
-	return func(c *gin.Context) {
-		err := c.ShouldBindJSON("some Json validation struct")
-		if err != nil {
+	// return func(c *gin.Context) {
+	// 	err := c.ShouldBindJSON("some Json validation struct")
+	// 	if err != nil {
 
-		}
-	}
-	// if errors.As(err, &valerr){
-	// 	out := make([]ErrorMessage,len(valerr))
-	// 	for i, errmsg := range valerr{
-	// 		out[i] = ErrorMessage{strings.ToLower(errmsg.Field()),GetErrorMsg(errmsg, rule)}
 	// 	}
-	// 	return gin.H{"errors":out}
 	// }
-	// return nil
+
+	out := make([]ErrorMessage, len(valerr))
+	for i, errmsg := range valerr {
+		out[i] = ErrorMessage{strings.ToLower(errmsg.Field()), GetErrorMsg(errmsg, rule)}
+	}
+	return gin.H{"errors": out}
+
+	return nil
 
 }
 
