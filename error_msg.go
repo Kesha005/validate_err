@@ -26,7 +26,8 @@ Request body struct to using validation
 var valerr validator.ValidationErrors
 
 type Request struct {
-	req *gin.Context
+	req      *gin.Context
+	messages *map[string]string
 }
 
 func (reval Request) val(user *struct{}) gin.HandlerFunc {
@@ -40,10 +41,10 @@ func (reval Request) val(user *struct{}) gin.HandlerFunc {
 	}
 	validate := validator.New()
 	err = validate.Struct(user)
-	if err!=nil{
-		GetErr()
+	if err != nil {
+		GetErr(err, reval.messages)
 	}
-	
+
 	return func(ctx *gin.Context) {
 		ctx.Next()
 	}
@@ -57,16 +58,24 @@ func GetErr(err error, rule *map[string]string) gin.HandlerFunc {
 
 	// 	}
 	// }
+	if errors.As(err, &valerr) {
+		out := make([]ErrorMessage, len(valerr))
+		for i, errmsg := range valerr {
+			out[i] = ErrorMessage{strings.ToLower(errmsg.Field()), GetErrorMsg(errmsg, rule)}
+		}
+		return func(ctx *gin.Context) {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": out})
+			
+		}
 
-	out := make([]ErrorMessage, len(valerr))
-	for i, errmsg := range valerr {
-		out[i] = ErrorMessage{strings.ToLower(errmsg.Field()), GetErrorMsg(errmsg, rule)}
 	}
-	return gin.H{"errors": out}
-
-	return nil
+	return func(ctx *gin.Context) {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Errors did not match"})
+			
+	}
 
 }
+
 
 // var validation_err = map[string]string{
 // 	"name.required" :"Name field is required",
